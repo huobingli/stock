@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stock.project.dao.SelectStock">
+    <insert id="Select" parameterType="java.lang.String" keyColumn="" >
+        select * from stock where name = #{name, jdbcType=STRING};
+    </insert>
+
+    <!--    <select id="selectxxxx" resultType="com.stock.project.dao.Result">-->
+    <!--        select a.id as id,-->
+    <!--               a.name as name,-->
+    <!--               b.phone_number as phoneNumber-->
+    <!--        from a-->
+    <!--        left join b on a.id = b.id-->
+    <!--        where id > 100 and b.id < 200-->
+    <!--            order by  id DESC-->
+    <!--    </select>-->
+
+    <!--    <update id="updatedddddd">-->
+    <!--        update xxx-->
+    <!--    </update>-->
+
+    <!--    <delete id="deletexxxxxx">-->
+
+    <!--    </delete>-->
+
+</mapper>

@@ -1,0 +1,721 @@
+<head>
+  <script src="js/charts.js"></script>
+  <script src="http://s.thsi.cn/js/jquery-1.9.0.min.js"></script>
+</head>
+<body>
+  <div style="width:600px;height:350px;background:#fff" id="chart"></div>
+  <script>
+    var option;
+    document.getElementById('chart').style.width = '600px';
+document.getElementById('chart').style.height = '450px'
+
+var chart = D3Charts.init('chart');
+var klinePrice_tooltip = D3Charts.hqHelper.klinePrice_tooltip;
+var filterNum = D3Charts.hqHelper.filterNum;
+
+var code = window.location.search.substr(1) || 'hs_300750';
+
+var color = {
+    axisLine: '#ccc',
+    abAxis: '#de422e',
+    beAxis: '#3e9663',
+    eqAxis: '#444',
+    ma5: '#1F6195',
+    ma10: '#E0AC58',
+    ma30: '#9C73AF',
+    // 悬停十字线
+    hoverLine: '#A0A0A0'
+}
+// document.getElementById('chart').style.border = '1px solid '+color.axisLine;
+
+// kline数据配置
+var klinedata = {
+    type: 'klineLast',
+    code: code,
+    ma: [5,
+        10,
+        30],
+    lastDays: 360
+};
+
+var dp = D3Charts.getDataPool();
+dp.setStatus({
+    enableFilterUrl: true
+});
+
+// 获得数据
+var dataProvider = D3Charts.getDataPool().register(klinedata);
+D3Charts.getDataPool().onAction(dataProvider, 'PROVIDER_UPDATE.myproject', function(d) {
+    if (d.fetchStatus.code !== '000') return;
+
+    var needConvertoShou = d.data.stockType.needConvertoShou;
+    var keepLen = d.data.stockType.keepLen;
+    var minValueSpan = 20;
+
+    var kData = d.data.dataArray;
+
+    var testN = kData.length
+    var testMarkAreaDateStart = kData[testN - 20].t
+    var testMarkAreaDateEnd = kData[testN - 10].t
+
+    chart.setOption({
+        axis: [{
+            position: 'bottom',
+            type: 'band',
+            $gridIndex: [2, 0, 1],
+            xOrY: 'x',
+            $dataIndex: 0,
+            dataKey: 't',
+            paddingInner: 0.3,
+            paddingOuter: 0.3,
+            barGap: 0,
+            $dataZoomIndex: 0,
+            tickValues: function(domain) {
+                var n = domain.length - 1;
+                if (n < 6) {
+                    return [domain[0]];
+                } else if (n < minValueSpan) {
+                    return [domain[0],
+                        domain[n]];
+                } else {
+                    var split = n / 6;
+                    return [domain[Math.round(n / 6)],
+                        domain[Math.round(n * 3 / 6)],
+                        domain[Math.round(n * 5 / 6)]];
+                }
+            },
+            splitLine: {
+                show: true,
+                style: {
+                    stroke: color.axisLine,
+                    lineDash: [3,
+                        4],
+                    lineWidth: 1
+                }
+            },
+            label: {
+                padding: 4,
+                inRange: true,
+                style: {
+                    fill: color.eqAxis
+                },
+                formatter: function(d) {
+                    return d.substr(0, 4) + '-' + d.substr(4, 2) + '-' + d.substr(6, 2);
+                }
+            },
+            line: {
+                show: false
+            },
+            tick: {
+                show: false
+            }
+        },
+            {
+                position: 'left',
+                type: 'linear',
+                space: [10,
+                    20],
+                $gridIndex: 0,
+                xOrY: 'y',
+                tickValues: function(domain) {
+                    var min = domain[0];
+                    var max = domain[1];
+                    var detar = max - min;
+                    return [domain[0],
+                        detar / 4 + domain[0],
+                        detar * 2 / 4 + domain[0],
+                        detar * 3 / 4 + domain[0],
+                        domain[1]];
+                },
+                splitLine: {
+                    show: true,
+                    style: function(value, i) {
+                        switch (i) {
+                            case 0:
+                                case 4:
+                                    case 1:
+                                        case 3:
+                                            return {
+                                                stroke: 'rgba(255,255,255,0)',
+                                                lineWidth: 1
+                                            }
+                                            default:
+                                                return {
+                                                    stroke: color.axisLine,
+                                                    lineWidth: 1
+                                                }
+                                            }
+                                    }
+                            },
+                            label: {
+                                padding: 4,
+                                style: {
+                                    fill: color.eqAxis
+                            },
+                            // formatter: function (d) {
+
+                            // }
+                        },
+                        line: {
+                            show: false
+                        },
+                        tick: {
+                            show: false
+                        }
+                    },
+                    {
+                        position: 'left',
+                        type: 'linear',
+                        $gridIndex: 1,
+                        $dataIndex: 1,
+                        space: [0,
+                            20],
+                        domainEqualZero: [0,
+                            1],
+                        xOrY: 'y',
+                        tickValues: function(domain) {
+                            var min = domain[0];
+                            var max = domain[1];
+                            var detar = max - min;
+                            return [domain[0],
+                                detar * 2 / 4 + domain[0],
+                                domain[1]];
+                        },
+                        label: {
+                            padding: 4,
+                            inRange: true,
+                            style: {
+                                fill: color.eqAxis
+                        },
+                        formatter: function(v) {
+                            return (v * 100).toFixed(2) + '%';
+                        }
+                    },
+                    line: {
+                        show: false
+                    },
+                    tick: {
+                        show: false
+                    }
+                },
+                {
+                    position: 'left',
+                    type: 'linear',
+                    $gridIndex: 2,
+                    $dataIndex: 2,
+                    space: [0,
+                        20],
+                    domainEqualZero: [0,
+                        1],
+                    xOrY: 'y',
+                    tickValues: function(domain) {
+                        var min = domain[0];
+                        var max = domain[1];
+                        var detar = max - min;
+                        return [domain[0],
+                            detar * 2 / 4 + domain[0],
+                            domain[1]];
+                    },
+                    label: {
+                        padding: 4,
+                        inRange: true,
+                        style: {
+                            fill: color.eqAxis
+                        },
+                        formatter: function(v) {
+                            return (v / 100).toPrecision(2);
+                        }
+                    },
+                    line: {
+                        show: false
+                    },
+                    tick: {
+                        show: false
+                    }
+                }],
+            grid: [{
+                left: 50,
+                top: 0,
+                right: 9,
+                bottom: '60%',
+                background: {
+                    show: true,
+                    borderEnable: [1,
+                        1,
+                        1,
+                        1],
+                    style: {
+                        stroke: color.axisLine,
+                    }
+                },
+                topPlaceHolder: {
+                    show: true,
+                    borderEnable: [1,
+                        1,
+                        0,
+                        1],
+                }
+
+            },
+                {
+                    left: 50,
+                    top: '40%',
+                    right: 9,
+                    bottom: '35%',
+                    background: {
+                        show: true,
+                        borderEnable: [1,
+                            1,
+                            1,
+                            1],
+                        style: {
+                            stroke: color.axisLine,
+                        }
+                    },
+                    topPlaceHolder: {
+                        show: true,
+                        borderEnable: [0,
+                            1,
+                            0,
+                            1],
+                    }
+                },
+                {
+                    left: 50,
+                    top: '65%',
+                    right: 9,
+                    bottom: 50,
+                    background: {
+                        show: true,
+                        borderEnable: [1,
+                            1,
+                            1,
+                            1],
+                        style: {
+                            stroke: color.axisLine,
+                        }
+                    },
+                    topPlaceHolder: {
+                        show: true,
+                        borderEnable: [0,
+                            1,
+                            0,
+                            1],
+                    },
+                    bottomPlaceHolder: {
+                        show: true,
+                        borderEnable: [0,
+                            1,
+                            1,
+                            1],
+                    }
+                }],
+            axisPointer: [{
+                $axisIndex: [1,
+                    2,
+                    3],
+                line: {
+                    style: {
+                        stroke: color.hoverLine,
+                        lineDash: [2,
+                            3],
+                        lineWidth: 1
+                    }
+                },
+                label: {
+                    gap: 0,
+                    style: {
+                        fill: 'white',
+                        textBorderRadius: 0,
+                        textBackgroundColor: '#555'
+                    },
+                }
+            },
+                {
+                    $axisIndex: 0,
+                    line: {
+                        style: {
+                            stroke: color.hoverLine,
+                            lineDash: [2,
+                                3],
+                            lineWidth: 1
+                        }
+                    },
+                    label: {
+                        gap: 0,
+                        style: {
+                            fill: 'white',
+                            textBorderRadius: 0,
+                            textBackgroundColor: '#555'
+                        },
+                    }
+                }],
+            tooltip: [{
+                trigger: 'axis',
+                $axisIndex: 0,
+                position: [50,
+                    200],
+                style: {
+                    position: 'absolute',
+                    zIndex: 99999,
+                    backgroundColor: undefined,
+                    borderRadius: '0px',
+                    padding: '2px',
+                    color: '#555',
+                    fontSize: '12px',
+                    display: 'none',
+                },
+                formatter: function(d) {
+                    console.log(d);
+                    return d.series[5].name + ' :  ' + (d.series[5].value[1] / 1000000).toFixed(2) + '%'
+                }
+            },
+                {
+                    trigger: 'axis',
+                    $axisIndex: 0,
+                    position: [50,
+                        0],
+                    alwaysShowContent: true,
+                    formatter: function(d) {
+                        return klinePrice_tooltip(kData[d.series[0].dataIndex], {
+                            needConvertoShou: needConvertoShou,
+                            keepLen: keepLen
+                    }, function(d) {
+                            var tpl = d.tpl;
+                            var maTpl = d.maTpl;
+                            var result = d.result;
+                            var data = d.data;
+                            return (tpl + maTpl).replace(/<%([^%>]+)?%>/g, function(s0, s1) {
+                                if (s1 === 'status' ||
+                                    s1 === 'openPStatus' ||
+                                    s1 === 'maxPStatus' ||
+                                    s1 === 'minPStatus') {
+                                    return color[result[s1] + 'Axis'];
+                                } else if (/^(ma[{0-9}]+Status)$/.test(s1)) {
+                                    return color[s1.slice(0, -6)];
+                                } else if (/^(ma[{0-9}]+)$/.test(s1)) {
+                                    return parseFloat(data[s1]).toFixed(keepLen);
+                                } else {
+                                    return result[s1];
+                                }
+                        })
+                    })
+            },
+            // 浮窗的css样式
+            style: {
+                position: 'absolute',
+                zIndex: 99999,
+                backgroundColor: undefined,
+                borderRadius: '0px',
+                padding: '2px',
+                color: '#555',
+                fontSize: '12px',
+                display: 'none',
+            }
+        }],
+        dataZoom: [{
+            $gridIndex: [0, 1, 2],
+            // 初始 绘制的k线范围
+            // startValue: '20180115',
+            // endValue: '20180531',
+            minValueSpan: minValueSpan,
+            // maxValueSpan: 100
+            startValue: -60,
+            type: 'both',
+            top: 570,
+            left: 50,
+            right: 10,
+            height: 30,
+            seriesIndex: 0,
+            dataBackground: {
+                show: true
+            }
+        }],
+        series: [{
+            type: 'hqbar',
+            name: '价格',
+            hqbarType: 'kline',
+            $axisIndex: [0, 1],
+            $dataIndex: 0,
+        },
+            {
+                type: 'line',
+                aliasType: 'hqline',
+                $dataIndex: 0,
+                dataKey: 'ma5',
+                name: 'ma5',
+                line: {
+                    show: true,
+                    style: {
+                        normal: {
+                            stroke: color.ma5,
+                            lineWidth: 1
+                        }
+                    }
+                }
+            }, {
+                type: 'line',
+                aliasType: 'hqline',
+                $dataIndex: 0,
+                dataKey: 'ma10',
+                name: 'ma10',
+                line: {
+                    show: true,
+                    style: {
+                        normal: {
+                            stroke: color.ma10,
+                            lineWidth: 1
+                        }
+                    }
+                }
+            }, {
+                type: 'line',
+                aliasType: 'hqline',
+                $dataIndex: 0,
+                dataKey: 'ma30',
+                name: 'ma30',
+                line: {
+                    show: true,
+                    style: {
+                        normal: {
+                            stroke: color.ma30,
+                            lineWidth: 1
+                        }
+                    }
+                }
+            }, {
+                type: 'line',
+                $dataIndex: 1,
+                name: 'percent',
+                curve: {
+                    type: "monotoneX"
+                },
+                pieces: [{
+                    min: 0,
+                    color: 'rgb(247,48,75)'
+                }, {
+                    max: 0,
+                    color: 'rgb(48,172,99)'
+                }],
+                line: {
+                    show: true,
+                    style: {
+                        normal: {
+                            stroke: color.ma30,
+                            lineWidth: 1
+                        }
+                    }
+                },
+                area: {
+                    show: true,
+                    style: {
+                        opacity: 0.2
+                    }
+                },
+                $axisIndex: [0, 2]
+            }, {
+                type: 'bar',
+                $dataIndex: 2,
+                $axisIndex: [0, 3],
+                name: '仓位',
+                itemStyle: {
+                    normal: function(i) {
+                        var randomNum = (i[0] + i[1]) % 2;
+                        if (randomNum === 0) {
+                            return {
+                                fill: 'rgba(247,48,75,1)'
+                            }
+                        } else {
+                            return {
+                                fill: 'rgba(48,172,99,1)'
+                            }
+                        }
+                    },
+                    emphasis: {
+                        opacity: 0.8
+                    }
+                }
+            }],
+        markArea: [{
+            $axisIndex: [0,
+                1],
+            label: {
+                normal: {
+                    show: true,
+                    style: {
+                        position: 'inside',
+                        fontSize: 16
+                    }
+                }
+            },
+            areaStyle: {
+                normal: {
+                    fill: 'rgba(91,212,147,0.2)'
+                }
+            },
+            data: [{
+                points: [{
+                    xValue: testMarkAreaDateStart,
+                    y: 'top'
+                },
+                    {
+                        xValue: testMarkAreaDateEnd,
+                        y: 'bottom'
+                    }]
+            }],
+            z: 1
+        },
+            {
+                $axisIndex: [0,
+                    2],
+                label: {
+                    normal: {
+                        show: true,
+                        style: {
+                            position: 'inside',
+                            fontSize: 16
+                        }
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        fill: 'rgba(91,212,147,0.2)'
+                    }
+                },
+                data: [{
+                    points: [{
+                        xValue: testMarkAreaDateStart,
+                        y: 'top'
+                    },
+                        {
+                            xValue: testMarkAreaDateEnd,
+                            y: 'bottom'
+                        }]
+                }],
+                z: 1
+            },
+            {
+                $axisIndex: [0,
+                    3],
+                label: {
+                    normal: {
+                        show: true,
+                        style: {
+                            position: 'inside',
+                            fontSize: 16
+                        }
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        fill: 'rgba(91,212,147,0.2)'
+                    }
+                },
+                data: [{
+                    points: [{
+                        xValue: testMarkAreaDateStart,
+                        y: 'top'
+                    },
+                        {
+                            xValue: testMarkAreaDateEnd,
+                            y: 'bottom'
+                        }]
+                }],
+                z: 1
+            },
+        ],
+        markPoint: [{
+            $axisIndex: [0,
+                1],
+            $seriesIndex: 0,
+            symbol: {
+                type: 'none'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    style: {
+                        fill: 'black',
+                        textDistance: 0,
+                        position: function(d, item, position) {
+                            var gridModel = chart.getModel('grid', 0);
+
+                            if (position[0] > (gridModel.position.left + gridModel.position.width / 2)) {
+                                return 'left';
+                            } else {
+                                return 'right';
+                            }
+                        }
+                    },
+                    formatter: function(item, position) {
+                        var gridModel = chart.getModel('grid', 0);
+
+                        if (position[0] > (gridModel.position.left + gridModel.position.width / 2)) {
+                            return item.data[1].toFixed(2) + ' ←'
+                        } else {
+                            return '→ ' + item.data[1].toFixed(2)
+                        }
+                    }
+                }
+            },
+            data: [{
+                type: 'max',
+                valueIndex: 1
+            },
+                {
+                    type: 'min',
+                    valueIndex: 2
+                }]
+        }],
+        animation: false,
+        data: [{
+            originData: kData
+        },
+            {
+                // 仿造 折线分段数据
+                $dataIndex: 0,
+                formatter: function(d) {
+                    var arr = [];
+                    var baseNum;
+                    for (var i = 0; i < d.length; i++) {
+                        if (i % 6 === 0) {
+                            baseNum = d[i].c
+                        }
+                        arr.push((d[i].c - baseNum) / baseNum);
+                    }
+
+                    return arr;
+                }
+            },
+            {
+                // 仿造 仓位数据
+                $dataIndex: 0,
+                formatter: function(d) {
+                    var arr = [];
+                    for (var i = 0; i < d.length; i++) {
+                        arr.push(d[i].n);
+                    }
+
+                    return arr;
+                }
+            }],
+    });
+
+    var axisModel = chart.getModel('axis',
+        0);
+    var tooltipModel = chart.getModel('tooltip',
+        0);
+    var tooltipView = chart.getViewOfComponentModel(tooltipModel);
+
+    chart.registerAction(axisModel,
+        'AXIS_OUT',
+        function(d) {
+            var lastData = d.lastData;
+            if (lastData) {
+                tooltipView.showTooltip(tooltipModel, lastData);
+            }
+        })
+
+});
+    </script>
+</body>

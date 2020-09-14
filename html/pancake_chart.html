@@ -1,0 +1,112 @@
+<head>
+  <script src="js/charts.js"></script>
+</head>
+<body>
+  <div style="width:600px;height:350px;background:#fff" id="chart"></div>
+  <script>
+    var option;
+    option = {
+  data: [
+    {
+      originData: {
+        title: '互联网服务与终端',
+        values: [
+          {
+            value: 500,
+            name: '数据1',
+            color: '#2F97FF'
+          },
+          {
+            value: 200,
+            name: '数据2',
+            color: '#50E3C2'
+          },
+          {
+            value: 120,
+            name: '数据3',
+            color: '#FF5646'
+          },
+          {
+            value: 100,
+            name: '数据4',
+            color: '#F1C861'
+          }
+        ]
+      }
+    }
+  ],
+  tooltip: [
+    {
+      trigger: 'item'
+    }
+  ],
+  series: [
+    {
+      type: 'pie',
+      name: 'arc1',
+      data: {
+        dataIndex: 0
+      },
+      center: ['50%', '50%'],
+      radius: [56, 96],
+      title: {
+        offsetCenter: [0, -200],
+        textStyle: {
+          fontSize: 18,
+          color: '#fff'
+        }
+      },
+      label: {
+        position: 'outer',
+        lineColor: '#8E8E8E',
+        formatter: function(orginD, d) {
+          let first = `{first|${(d * 100).toFixed(0)}%}`
+          let second = `{second|第二行}`
+          let third = `{third|第三行}`
+
+          return first + '\n' + second + '\n' + third
+        },
+        textStyle: {
+          position: 'center',
+          fontSize: 14,
+          fontFamily: 'DIN-Medium',
+          rich: {
+            first: {
+              fontSize: 18,
+              textLineHeight: 24,
+              textFill: '#151618'
+            },
+            second: {
+              textLineHeight: 20,
+              textFill: '#666769'
+            },
+            third: {
+              textFill: '#666769'
+            }
+          }
+        }
+      }
+    }
+  ],
+  legend: [
+    {
+      show: true,
+      textStyle: {
+        color: '#485465'
+      },
+      data: ['数据1', '数据2', '数据3', '数据4'],
+      left: '29%',
+      top: '5%',
+      selected: {},
+      symbol: {
+        type: 'circle'
+      },
+      orient: 'horizontal'
+    }
+  ]
+}
+
+    var myChart = D3Charts.init("chart");
+    myChart.setOption(option);
+  </script>
+</body>

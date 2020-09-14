@@ -1,0 +1,226 @@
+<head>
+  <script src="js/charts.js"></script>
+</head>
+<body>
+  <div style="width:600px;height:350px;background:#fff" id="chart"></div>
+  <script>
+    var option;
+     const getColor1 = value => (value >= 0 ? '#FF6053' : '#239605')
+    const gradient = (a, b) => ({
+      type: 'linear',
+      x: 0,
+      y: 0,
+      x2: 1,
+      y2: 1,
+      colorStops: [
+        {
+          offset: 0,
+          color: a // 0% 处的颜色
+        },
+        {
+          offset: 1,
+          color: b // 100% 处的颜色
+        }
+      ]
+    })
+    option = {
+      axis: [
+        {
+          position: 'bottom',
+          $dataIndex: 0,
+          dataKey: 0,
+          barGap: '0%',
+          paddingInner: '60%',
+          paddingOuter: '40%',
+          tick: {
+            show: false,
+            outerSize: 6,
+            innerSize: 0,
+            style: {
+              lineWidth: 1,
+              stroke: 'rgba(51, 51, 51, 0.1)'
+            }
+          },
+          line: {
+            show: true,
+            style: {
+              stroke: 'rgba(0, 0, 0, 0.1)',
+              lineWidth: 2
+            },
+            onZero: true
+          },
+          label: {
+            show: true,
+            padding: 10,
+            style: {
+              fill: 'rgba(0, 0, 0, 0.3)',
+              fontSize: 12
+            }
+          },
+          splitLine: {
+            show: false,
+            style: {
+              color: 'rgba(51, 51, 51, 0.1)',
+              lineWidth: 1
+            }
+          },
+          splitArea: {
+            show: true,
+            onRect: true,
+            style: {
+              color: 'rgba(51, 51, 51, 0.05)'
+            }
+          },
+          name: {
+            show: false,
+            text: '',
+            offset: [0, 0],
+            location: 'end',
+            gap: 10,
+            style: {
+              fontSize: 12,
+              fill: 'rgba(51, 51, 51, 0.4)'
+            }
+          }
+        },
+        {
+          position: 'left',
+          type: 'linear',
+          xOrY: 'y',
+          splitNumber: 5,
+          tick: {
+            show: false,
+            outerSize: 6,
+            innerSize: 0,
+            style: {
+              lineWidth: 1,
+              stroke: 'rgba(51, 51, 51, 0.1)'
+            }
+          },
+          line: {
+            show: false,
+            style: {
+              stroke: '#D1D1D1',
+              lineWidth: 2
+            }
+          },
+          label: {
+            show: false,
+            padding: 10,
+            style: {
+              fill: 'rgba(51, 51, 51, 0.4)',
+              fontSize: 12
+            }
+          },
+          splitLine: {
+            show: false,
+            style: {
+              color: '#fff',
+              lineWidth: 1
+            }
+          },
+          splitArea: {
+            show: false,
+            style: {
+              color: ['rgba(51, 51, 51, 0.05)', 'rgba(0, 0, 0, 0)']
+            }
+          },
+          name: {
+            show: false,
+            text: '',
+            offset: [0, 0],
+            location: 'end',
+            gap: 10,
+            style: {
+              fontSize: 12,
+              fill: 'rgba(51, 51, 51, 0.4)'
+            }
+          }
+        }
+      ],
+      grid: [
+        {
+          left: '5%',
+          right: '5%',
+          top: '10%',
+          bottom: '10%'
+        }
+      ],
+      series: [
+        {
+          type: 'bar',
+          $dataIndex: 0,
+          //rectRadius: data => (data[1] >= 0 ? [6, 6, 0, 0] : [0, 0, 6, 6]),
+          dataKey: 1,
+          name: '销量',
+          label: {
+            normal: {
+              show: 'all',
+              style: {
+                position: value => (value >= 0 ? 'top' : 'bottom'),
+                fill: value => getColor1(value),
+                fontFamily: 'PingFangSC-Medium',
+                fontSize: 14
+              }
+            },
+            emphasis: {
+              show: true,
+              style: {
+                fontSize: 16
+              }
+            }
+          },
+          itemStyle: {
+            normal: data => {
+              let color = getColor1(data[1])
+              return {fill: color}
+            }
+          }
+        }
+      ],
+      data: [
+        {
+          originData: [
+            ['Jan', 1850],
+            ['Feb', 900],
+            ['Mar', 760],
+            ['Apr', -1300],
+            ['May', -2250]
+          ]
+        }
+      ],
+      tooltip: [
+        {
+          style: {
+            backgroundColor: 'rgba(57,93,129,0.6)'
+          }
+        }
+      ],
+      axisPointer: [
+        {
+          $axisIndex: 0,
+          shadow: {
+            show: true,
+            style: {
+              fill: 'rgba(57,93,129,0.1)'
+            }
+          },
+          line: {
+            show: false
+          },
+          label: {
+            show: true,
+            style: {
+              fill: '#2F97FF',
+              textBackgroundColor: 'rgba(255,255,255,1)',
+              fontWeight: 460,
+              fontSize: 12
+            }
+          }
+        }
+      ]
+    }
+    var myChart = D3Charts.init("chart");
+    myChart.setOption(option);
+  </script>
+</body>

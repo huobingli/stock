@@ -1,0 +1,351 @@
+<head>
+  <script src="js/charts.js"></script>
+</head>
+<body>
+  <div style="width:600px;height:350px;background:#fff" id="chart"></div>
+  <script>
+    var option;
+    		var arr = [];
+
+		for (var i = 1; i < 12; i++) {
+			arr.push({
+				date: '3月' + i + '日',
+				x: Math.random() * 300 + 50,
+				y: Math.random() * 250 + 200
+			})
+		}
+
+		option = {
+    "data": [
+        {
+            "originData": [
+                {
+                    "date": "3月1日",
+                    "x": 121.15221380436526,
+                    "y": 145.14612970770014
+                },
+                {
+                    "date": "3月2日",
+                    "x": 157.34111997704167,
+                    "y": 197.0854323316857
+                },
+                {
+                    "date": "3月3日",
+                    "x": 142.8339415142327,
+                    "y": 200.9288118011757
+                },
+                {
+                    "date": "3月4日",
+                    "x": 194.22532846084,
+                    "y": 237.91613434773916
+                },
+                {
+                    "date": "3月5日",
+                    "x": 152.518054338884,
+                    "y": 232.8163589745027
+                },
+                {
+                    "date": "3月6日",
+                    "x": 168.5471554311728,
+                    "y": 305.8107488255147
+                },
+                {
+                    "date": "3月7日",
+                    "x": 160.1353666113585,
+                    "y": 245.0452483170851
+                },
+                {
+                    "date": "3月8日",
+                    "x": 207.16121681819442,
+                    "y": 142.64405934535216
+                },
+                {
+                    "date": "3月9日",
+                    "x": 164.99182276394873,
+                    "y": 197.94002011838893
+                },
+                {
+                    "date": "3月10日",
+                    "x": 200.72166709079318,
+                    "y": 229.19173121863057
+                },
+                {
+                    "date": "3月11日",
+                    "x": 387.60085955230215,
+                    "y": 312.4499830216107
+                }
+            ]
+        }
+    ],
+    "grid": [
+        {
+            "top": "15%",
+            "left": "15%",
+            "right": "10%",
+            "bottom": "15%"
+        }
+    ],
+    "series": [
+        {
+            "type": "line",
+            "$dataIndex": 0,
+            "dataKey": "x",
+            "name": "销量 1",
+            "symbol": {
+                "normal": {
+                    "show": "all",
+                    "size": 6,
+                    "style": {
+                        "fill": "white",
+                        "stroke": "#2DCDCD",
+                        "lineWidth": 2
+                    }
+                },
+                "emphasis": {
+                    "show": true,
+                    "style": {
+                        "fill": "#2DCDCD",
+                        "stroke": "#2DCDCD"
+                    }
+                }
+            },
+            "line": {
+                "show": true,
+                "style": {
+                    "normal": {
+                        "stroke": "#2DCDCD",
+                        "lineWidth": 2
+                    }
+                }
+            }
+        },
+        {
+            "type": "line",
+            "$dataIndex": 0,
+            "dataKey": "y",
+            "name": "销量 2",
+            "symbol": {
+                "normal": {
+                    "show": "all",
+                    "size": 6,
+                    "style": {
+                        "fill": "white",
+                        "stroke": "#2e96ff",
+                        "lineWidth": 2
+                    }
+                },
+                "emphasis": {
+                    "show": true,
+                    "style": {
+                        "fill": "#2e96ff",
+                        "stroke": "#2e96ff"
+                    }
+                }
+            },
+            "line": {
+                "show": true,
+                "style": {
+                    "normal": {
+                        "stroke": "#2e96ff",
+                        "lineWidth": 2
+                    }
+                }
+            }
+        }
+    ],
+    "dataZoom": [
+        {}
+    ],
+    "axis": [
+        {
+            "position": "bottom",
+            "type": "point",
+            "$dataIndex": 0,
+            "$dataZoomIndex": 0,
+            "dataKey": "date",
+            "barGap": "20%",
+            "paddingInner": "60%",
+            "paddingOuter": "40%",
+            "intervalLength": 69,
+            "tick": {
+                "show": false,
+                "outerSize": 6,
+                "innerSize": 0,
+                "style": {
+                    "lineWidth": 1,
+                    "stroke": "rgba(51, 51, 51, 0.1)"
+                }
+            },
+            "line": {
+                "show": true,
+                "style": {
+                    "stroke": "rgba(0, 0, 0, 0.1)",
+                    "lineWidth": 2
+                }
+            },
+            "label": {
+                "show": true,
+                "padding": 20,
+                "style": {
+                    "fill": "rgba(0, 0, 0, 0.3)",
+                    "fontSize": 12
+                }
+            },
+            "splitLine": {
+                "show": false,
+                "style": {
+                    "color": "rgba(51, 51, 51, 0.1)",
+                    "lineWidth": 1
+                }
+            },
+            "splitArea": {
+                "show": false,
+                "style": {
+                    "color": [
+                        "rgba(51, 51, 51, 0.05)",
+                        "rgba(0, 0, 0, 0)"
+                    ]
+                }
+            },
+            "name": {
+                "show": false,
+                "text": "",
+                "offset": [
+                    0,
+                    0
+                ],
+                "location": "end",
+                "gap": 10,
+                "style": {
+                    "fontSize": 12,
+                    "fill": "rgba(51, 51, 51, 0.4)"
+                }
+            }
+        },
+        {
+            "position": "left",
+            "type": "linear",
+            "xOrY": "y",
+            "min": 0,
+            "max": 500,
+            "splitNumber": 5,
+            "tick": {
+                "show": false,
+                "outerSize": 6,
+                "innerSize": 0,
+                "style": {
+                    "lineWidth": 1,
+                    "stroke": "rgba(51, 51, 51, 0.1)"
+                }
+            },
+            "line": {
+                "show": false,
+                "style": {
+                    "stroke": "rgba(51, 51, 51, 0.1)",
+                    "lineWidth": 2
+                }
+            },
+            "label": {
+                "show": true,
+                "padding": 25,
+                "style": {
+                    "fill": "rgba(0, 0, 0, 0.3)",
+                    "fontSize": 12
+                }
+            },
+            "splitLine": {
+                "show": false,
+                "style": {
+                    "color": "#D1D1D1",
+                    "lineWidth": 1
+                }
+            },
+            "splitArea": {
+                "show": true,
+                "style": {
+                    "color": [
+                        "rgba(0, 0, 0, 0.03)",
+                        "rgba(0, 0, 0, 0)"
+                    ]
+                }
+            },
+            "name": {
+                "show": false,
+                "text": "",
+                "offset": [
+                    0,
+                    0
+                ],
+                "location": "end",
+                "gap": 10,
+                "style": {
+                    "fontSize": 12,
+                    "fill": "rgba(51, 51, 51, 0.4)"
+                }
+            }
+        }
+    ],
+    "tooltip": [
+        {
+            "trigger": "axis",
+            "$axisIndex": 0,
+            "style": {
+                "backgroundColor": "rgba(57,93,129,0.6)"
+            }
+        }
+    ],
+    "axisPointer": [
+        {
+            "$axisIndex": 0,
+            "shadow": {
+                "show": true,
+                "style": {
+                    "fill": "rgba(5,83,161,0.1)"
+                }
+            },
+            "line": {
+                "show": true
+            },
+            "label": {
+                "show": true,
+               gap: 15,
+                "style": {
+                    "fill": "#2F97FF",
+                    "textBackgroundColor": "rgba(255,255,255,1)",
+                    "fontWeight": 460,
+                    "fontSize": 12
+                }
+            }
+        }
+    ],
+    "legend": [
+        {
+            "show": true,
+            "data": [
+                "销量 1",
+                "销量 2"
+            ],
+            "left": "70%",
+            "top": "5%",
+            "symbol": {
+                "type": "circle",
+                "size": [
+                    16,
+                    8
+                ]
+            },
+            "textStyle": {
+                "color": "#485465",
+                "fontSize": 12
+            }
+        }
+    ],
+    "textStyle": {
+        "fill": "#9B9B9B",
+        "fontFamily": "SFUIText-Regular"
+    }
+}         
+    var myChart = D3Charts.init("chart");
+    myChart.setOption(option);
+  </script>
+</body>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 // no mysql and mongo
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class})
 //@SpringBootApplication
-@RestController
 @MapperScan(value = "com.stock.project.dao")
 public class ProjectApplication {
     public static void main(String[] args) {

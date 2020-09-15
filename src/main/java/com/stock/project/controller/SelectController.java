@@ -12,16 +12,23 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+//@RequestMapping("/")
 public class SelectController {
     @Autowired
     private SelectStock selectStock;
 
     @RequestMapping("SelectStock")
+    @ResponseBody
     public List<ResultEntity> Select(@RequestParam("name") String name) {
 //        ResultEntity result = selectStock.Select(name);
         selectStock.Select(name);
         ResultEntity result = new ResultEntity();
         return Arrays.asList(result);
     }
+
+//    public String Select(@RequestParam("name") String name) {
+////        ResultEntity result = selectStock.Select(name);
+//        return selectStock.Select(name);
+//        //ResultEntity result = new ResultEntity();
+//    }
 }

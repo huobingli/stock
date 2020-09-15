@@ -4,4 +4,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface SelectStock {
     ResultEntity Select(@Param("username") String name);
+    //String Select(@Param("username") String name);
 }

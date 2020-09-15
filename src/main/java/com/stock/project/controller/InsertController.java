@@ -14,6 +14,7 @@ public class InsertController {
     private InsertStock insertStock;
 
     @RequestMapping("InsertStock")
+    @ResponseBody
     public String Insert(@RequestParam("code") String code, @RequestParam("name") String name, @RequestParam("industry") String industry) {
         insertStock.Insert(code, name, industry);
         return "Insert Success";

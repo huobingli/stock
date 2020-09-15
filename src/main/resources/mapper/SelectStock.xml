@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stock.project.dao.SelectStock">
-    <insert id="Select" parameterType="java.lang.String" keyColumn="" >
-        select * from stock where name = #{name, jdbcType=STRING};
+    <insert id="Select" parameterType="java.lang.String" resultType="com.stock.project.dao.ResultEntity">
+        select * from stock where name = #{username};
     </insert>
 
     <!--    <select id="selectxxxx" resultType="com.stock.project.dao.Result">-->

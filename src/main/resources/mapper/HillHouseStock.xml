@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stock.project.dao.HillHouseStock">
+    <resultMap id="resultEntityMap" type="com.stock.project.dao.HillHouseEntity">
+        <id column="id" property="id"  />
+        <result column="stock" property="stock" />
+        <result column="name" property="name" />
+        <result column="time" property="time" />
+        <result column="amount" property="amount" />
+        <result column="buycount" property="buycount" />
+        <result column="buyway" property="buyway" />
+        <result column="buyprice" property="buyprice" />
+        <result column="buyallmoney" property="buyallmoney" />
+        <result column="buyrate" property="buyrate" />
+        <result column="racetrack" property="racetrack" />
+        <result column="industry" property="industry" />
+        <result column="remarks" property="remarks" />
+    </resultMap>
+
+    <select id="Select" parameterType="java.lang.String" resultType="com.stock.project.dao.HillHouseEntity">
+        select * from hillhouse where name = #{param};
+    </select>
+
+    <select id="SelectList" parameterType="java.lang.String" resultMap="resultEntityMap">
+        select * from hillhouse where name = #{param};
+    </select>
+</mapper>

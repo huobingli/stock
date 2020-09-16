@@ -2,6 +2,7 @@ package com.stock.project.controller;
 
 import com.stock.project.dao.ResultEntity;
 import com.stock.project.dao.SelectStock;
+import com.stock.project.model.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,16 +20,15 @@ public class SelectController {
 
     @RequestMapping("SelectStock")
     @ResponseBody
-    public List<ResultEntity> Select(@RequestParam("name") String name) {
-//        ResultEntity result = selectStock.Select(name);
-        selectStock.Select(name);
-        ResultEntity result = new ResultEntity();
-        return Arrays.asList(result);
+    public ResultVo Select(@RequestParam("name") String name) {
+        ResultEntity result = selectStock.Select(name);
+        return ResultVo.success(result);
     }
 
-//    public String Select(@RequestParam("name") String name) {
-////        ResultEntity result = selectStock.Select(name);
-//        return selectStock.Select(name);
-//        //ResultEntity result = new ResultEntity();
-//    }
+    @RequestMapping("SelectStockList")
+    @ResponseBody
+    public ResultVo SelectList(@RequestParam("name") String name) {
+        List<ResultEntity> result = selectStock.SelectList(name);
+        return ResultVo.success(result);
+    }
 }

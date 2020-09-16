@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stock.project.dao.SelectStock">
-    <insert id="Select" parameterType="java.lang.String" resultType="com.stock.project.dao.ResultEntity">
+    <resultMap id="resultEntityMap" type="com.stock.project.dao.ResultEntity">
+        <id column="id" property="id"  />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="industry" property="industry" />
+    </resultMap>
+
+    <select id="Select" parameterType="java.lang.String" resultType="com.stock.project.dao.ResultEntity">
         select * from stock where name = #{username};
-    </insert>
+    </select>
 
-    <!--    <select id="selectxxxx" resultType="com.stock.project.dao.Result">-->
-    <!--        select a.id as id,-->
-    <!--               a.name as name,-->
-    <!--               b.phone_number as phoneNumber-->
-    <!--        from a-->
-    <!--        left join b on a.id = b.id-->
-    <!--        where id > 100 and b.id < 200-->
-    <!--            order by  id DESC-->
-    <!--    </select>-->
-
-    <!--    <update id="updatedddddd">-->
-    <!--        update xxx-->
-    <!--    </update>-->
-
-    <!--    <delete id="deletexxxxxx">-->
-
-    <!--    </delete>-->
-
+    <select id="SelectList" parameterType="java.lang.String" resultMap="resultEntityMap">
+        select * from stock where name = #{username};
+    </select>
 </mapper>

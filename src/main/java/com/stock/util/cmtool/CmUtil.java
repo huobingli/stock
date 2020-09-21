@@ -18,7 +18,7 @@ public class CmUtil {
     private DecimalFormat df = new DecimalFormat("######0.00");
 
 
-    public Cm2(List<CmKline> kList, long circulationAmount, CmConfig cmConfig) {
+    public void Cm2(List<CmKline> kList, long circulationAmount, CmConfig cmConfig) {
         log.info("配置信息：" + cmConfig);
         Assert.notEmpty(kList, "k线数据列表不能为空");
         this.circulationAmount = circulationAmount;
@@ -53,7 +53,7 @@ public class CmUtil {
         // 衰减因数；
         double pct = 1.0;        // 这里倒序遍历，因为行情获取的K线数据 日期是从小到大的，取K线数量时从最新日期开始取
         for (int i = kList.size() - 1; i >= 0; i--) {
-            K k = kList.get(i);
+            CmKline k = kList.get(i);
             double high = k.getHigh();
             double low = k.getLow();
             long volume = k.getVolume();

@@ -1,4 +1,5 @@
 package com.stock.project.dao;
 
-public class UpdateData {
+public interface UpdateData {
+    Integer UpdateData();
 }

@@ -9,6 +9,10 @@ public class ResultVo {
         return new ResultVo(code, msg, null);
     }
 
+    public static ResultVo success(Integer data) {
+        return new ResultVo(0, "success", data);
+    }
+
     public static ResultVo success(Object data) {
         return new ResultVo(0, "success", data);
     }

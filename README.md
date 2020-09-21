@@ -21,3 +21,6 @@ mybatis.mapperLocations=classpath:mapper/*.xml
 
 ####  mybatis 逆向工程
 实现一些简单的mysql语句的生成
+
+### plugin
+#### lombok

@@ -1,12 +1,10 @@
-package com.stock.util.LimitUpDown;
+package com.stock.project.util.limitupdown;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.stock.project.dao.UpdateDapanData;
 import com.stock.project.model.ResultVo;
-//import net.sf.json.JSONArray;
-//import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +18,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+//import net.sf.json.JSONArray;
+//import net.sf.json.JSONObject;
+
 @RestController
 //大盘涨跌停数
 public class DapanData {
@@ -30,34 +31,28 @@ public class DapanData {
     @RequestMapping("RequstDapanData")
     @ResponseBody
     public static ResultVo RequestData(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
-        try
-        {
+        try {
             //URL url = new URL("http://gpc.10jqka.com.cn/dptrend/zqxy/charts?startDate=20200101&endDate=20200921");
             URL url = new URL("http://gpc.10jqka.com.cn/dptrend/zqxy/charts?startDate=" + startDate + "&endDate=" + endDate);
             URLConnection urlConnection = url.openConnection();
             HttpURLConnection connection = null;
-            if(urlConnection instanceof HttpURLConnection)
-            {
+            if (urlConnection instanceof HttpURLConnection) {
                 connection = (HttpURLConnection) urlConnection;
-            }
-            else
-            {
+            } else {
 //                String strRet = "URL错误";
                 return ResultVo.success("URL错误");
             }
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String urlString = "";
             String current;
-            while((current = in.readLine()) != null)
-            {
+            while ((current = in.readLine()) != null) {
                 urlString += current;
             }
 //            System.out.println(urlString);
 
             UpdateDapanData(urlString);
 
-        }catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -66,7 +61,7 @@ public class DapanData {
     }
 
 
-    @RequestMapping("test")
+    @RequestMapping("testUpdate")
     @ResponseBody
     public static void UpdateDapanData(String string) {
         try {
@@ -79,8 +74,7 @@ public class DapanData {
             for (Object name : arrayData) {
                 System.out.println(name);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }

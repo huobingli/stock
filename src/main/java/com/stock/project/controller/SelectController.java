@@ -4,12 +4,8 @@ import com.stock.project.dao.ResultEntity;
 import com.stock.project.dao.SelectStock;
 import com.stock.project.model.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -23,6 +19,12 @@ public class SelectController {
     public ResultVo Select(@RequestParam("name") String name) {
         ResultEntity result = selectStock.Select(name);
         return ResultVo.success(result);
+    }
+
+    @RequestMapping("stocks/{stockCode}")
+    @ResponseBody
+    public ResultVo stockCode(@PathVariable String stockCode) {
+        return ResultVo.success(stockCode);
     }
 
     @RequestMapping("SelectStockList")

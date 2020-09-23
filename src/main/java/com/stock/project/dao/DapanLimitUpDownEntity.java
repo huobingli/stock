@@ -14,4 +14,5 @@ public class DapanLimitUpDownEntity {
     private String time;
     private Integer limitup;
     private Integer limitdown;
+    private String limituppre;
 }

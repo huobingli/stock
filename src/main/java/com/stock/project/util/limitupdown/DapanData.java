@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.stock.project.dao.UpdateDapanData;
-import com.stock.project.model.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,9 +28,10 @@ public class DapanData {
     @Autowired
     private UpdateDapanData dapanData;
 
-    @RequestMapping("RequstDapanData")
-    @ResponseBody
-    public static ResultVo RequestData(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+//    @RequestMapping("RequstDapanData")
+//    @ResponseBody
+//    public static String RequestData(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+    public static String RequestData(String startDate, String endDate) {
         try {
             //URL url = new URL("http://gpc.10jqka.com.cn/dptrend/zqxy/charts?startDate=20200101&endDate=20200921");
             URL url = new URL("http://gpc.10jqka.com.cn/dptrend/zqxy/charts?startDate=" + startDate + "&endDate=" + endDate);
@@ -40,7 +41,8 @@ public class DapanData {
                 connection = (HttpURLConnection) urlConnection;
             } else {
 //                String strRet = "URL错误";
-                return ResultVo.success("URL错误");
+                return "false";
+                //return ResultVo.success("URL错误");
             }
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String urlString = "";
@@ -50,14 +52,29 @@ public class DapanData {
             }
 //            System.out.println(urlString);
 
-            UpdateDapanData(urlString);
+
+            return urlString; //ResultVo.success(urlString);//UpdateDapanData(urlString);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return ResultVo.success("请求成功");
+        //return ResultVo.success("请求成功");
+        return "false";
 //        return urlString;
+    }
+
+    //@RequestMapping("RequstDapanData1")
+    @RequestMapping("testPost")
+//    @RequestMapping(value = "testPost", method = RequestMethod.POST)
+    @ResponseBody
+    public static String RequestData1() {
+        RestTemplate restTemplate = new RestTemplate();
+        String url="https://www.baidu.com";
+        ResponseEntity<String> entity= restTemplate.getForEntity(url, String.class);
+        String body = entity.getBody();
+
+        return body;
     }
 
 

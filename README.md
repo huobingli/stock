@@ -24,3 +24,15 @@ mybatis.mapperLocations=classpath:mapper/*.xml
 
 ### plugin
 #### lombok
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+
+### 注解
+@AutoWired
+@Component
+
+@RequestMapping
+@RequestBody
+

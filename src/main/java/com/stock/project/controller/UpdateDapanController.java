@@ -46,15 +46,16 @@ public class UpdateDapanController {
 
             //return ResultVo.success(arrayList);
 
-            for (int i = 0; i < arrayList.size(); i++ ) {
-
-                DapanLimitUpDownEntity dp = arrayList.get(i);
-                updateDapanData.InsertDapanData(dp.getTime(), dp.getLimitup(), dp.getLimitdown(), dp.getLimituppre());
-            }
-
+//            for (int i = 0; i < arrayList.size(); i++ ) {
+//
+//                DapanLimitUpDownEntity dp = arrayList.get(i);
+//                updateDapanData.InsertDapanData(dp.getTime(), dp.getLimitup(), dp.getLimitdown(), dp.getLimituppre());
+//            }
+            updateDapanData.InsertDapanData2(arrayList);
             return ResultVo.success("插入成功");
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ResultVo.error(-1, "抛出异常");
         }
 

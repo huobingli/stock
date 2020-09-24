@@ -10,6 +10,7 @@ import com.stock.project.util.limitupdown.DapanData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -60,5 +61,19 @@ public class UpdateDapanController {
         }
 
 //        return ResultVo.error(-1, "接口错误");
+    }
+
+
+    @RequestMapping("test2")
+    @ResponseBody
+    public ResultVo ExecuteUpdateTradingInfoData(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+        try {
+            String string = dapanData.RequestDapanRiseUpData(startDate, endDate);
+
+            return ResultVo.success(string);
+        } catch (Exception e) {
+
+        }
+        return ResultVo.success("error");
     }
 }

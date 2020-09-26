@@ -9,10 +9,10 @@
     </resultMap>
 
     <select id="Select" parameterType="java.lang.String" resultType="com.stock.project.dao.ResultEntity">
-        select * from stock where name = #{username};
+        select * from hillhouse where name = #{username} limit 1;
     </select>
 
     <select id="SelectList" parameterType="java.lang.String" resultMap="resultEntityMap">
-        select * from stock where name = #{username};
+        select * from hillhouse where name = #{username};
     </select>
 </mapper>

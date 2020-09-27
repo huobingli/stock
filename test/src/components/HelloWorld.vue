@@ -1,19 +1,18 @@
 <template>
-    <!-- 所有的内容要被根节点包含起来 -->
+  <!-- 所有的内容要被根节点包含起来 -->
     <div id="home">
         <button @click="getData()">请求数据</button>       
         <ul>
-            <li v-for="item in list">
+          {{list}}
+            <!-- <li v-for="item in list" v-bind:key="index">
                 {{item.title}}
-            </li>
+            </li> -->
         </ul>
     </div>
-
 </template>
 
-
 <script>
-   import Axios from 'axios';
+import Axios from 'axios';
 
     export default{
         data(){
@@ -22,11 +21,12 @@
             }
         },
         methods:{
-
             getData(){
-                var api='http://localhost:8080/stocks/300750';
+                // attention CORS
+                var api='localhost:8080/api/300750';
                 Axios.get(api).then((response)=>{
-                    this.list=response.data.result;
+                    this.list=response.data;
+                    console.log(response.data);
                 }).catch((error)=>{
                     console.log(error);
 
@@ -42,9 +42,22 @@
        
 
     }
-
 </script>
 
-<style lang="scss" scoped>
-    
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
 </style>

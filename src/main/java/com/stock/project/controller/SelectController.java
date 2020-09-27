@@ -6,10 +6,14 @@ import com.stock.project.model.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(allowedHeaders = {"*"}, allowCredentials = "true", origins = "http://localhost:8081")
 //@RequestMapping("/")
+//@CrossOrigin(origins = "*",maxAge = 3600)
+//@ConditionalOnProperty(name="management.endpoints.web.cors.enable", havingValue="true")
 public class SelectController {
     @Autowired
     private SelectStock selectStock;
@@ -21,9 +25,11 @@ public class SelectController {
         return ResultVo.success(result);
     }
 
-    @RequestMapping("stocks/{stockCode}")
+    @RequestMapping("api/{stockCode}")
     @ResponseBody
-    public ResultVo stockCode(@PathVariable String stockCode) {
+    public ResultVo stockCode(@PathVariable String stockCode, HttpServletResponse response) {
+
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return ResultVo.success(stockCode);
     }
 

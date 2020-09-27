@@ -3,9 +3,10 @@
     <div id="home">
         <button @click="getData()">请求数据</button>       
         <ul>
-            <li v-for="item in list">
+          {{list}}
+            <!-- <li v-for="item in list" v-bind:key="index">
                 {{item.title}}
-            </li>
+            </li> -->
         </ul>
     </div>
 </template>
@@ -20,14 +21,12 @@ import Axios from 'axios';
             }
         },
         methods:{
-
             getData(){
-
-                // to do 跨域请求
-                var api='localhost:8080/select/300750';
-                // Axios.head('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+                // attention CORS
+                var api='localhost:8080/api/300750';
                 Axios.get(api).then((response)=>{
-                    this.list=response.data.result;
+                    this.list=response.data;
+                    console.log(response.data);
                 }).catch((error)=>{
                     console.log(error);
 

@@ -1,0 +1,15 @@
+// module.export={
+//     basicUrl:'/',
+//     host:"localhost",
+//     port:8080,
+//     devServer:{
+//         '/api':{
+//             target:"http://localhost:8080",
+//             changeOrigin:true,
+//             ws:true,
+//             pathRewrite:{
+//                 '^/api':''
+//             }
+//         }
+//     }
+// }

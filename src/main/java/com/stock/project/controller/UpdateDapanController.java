@@ -41,7 +41,10 @@ public class UpdateDapanController {
                 JSONObject data = arrayData.getJSONObject(i);
 
                 DapanLimitUpDownEntity dp = new DapanLimitUpDownEntity();
-                dp.setId(data.getInteger("id")).setTime(data.getString("add_date")).setLimitdown(data.getInteger("dt_num")).setLimitup(data.getInteger("zt_num")).setLimituppre(data.getString("zrztbx"));
+                dp.setId(data.getInteger("id")).setTime(data.getString("add_date")).
+                        setLimitdowncount(data.getInteger("dt_num")).
+                        setLimitupcount(data.getInteger("zt_num")).
+                        setPrelimitup(data.getString("zrztbx"));
                 arrayList.add(dp);
             }
 

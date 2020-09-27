@@ -18,7 +18,7 @@
         insert into dapan (`time`, `limitupcount`, `limitdowncount`, `prelimitup`)
         values
         <foreach collection="list" item="item" index="index"  separator=",">
-            (#{item.time}, #{item.limitup}, #{item.limitdown}, #{item.limituppre})
+            (#{item.time}, #{item.limitupcount}, #{item.limitdowncount}, #{item.prelimitup})
         </foreach>
     </insert>
     <select id="query" resultType="com.stock.project.dao.DapanLimitUpDownEntity">

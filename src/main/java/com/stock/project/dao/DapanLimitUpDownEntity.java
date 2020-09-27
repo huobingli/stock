@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 public class DapanLimitUpDownEntity {
     private Integer id;
     private String time;
-    private Integer limitup;
-    private Integer limitdown;
-    private String limituppre;
+    private Integer limitupcount;
+    private Integer limitdowncount;
+    private String prelimitup;
 }

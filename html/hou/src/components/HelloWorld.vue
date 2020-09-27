@@ -23,24 +23,19 @@ import Axios from 'axios';
         methods:{
             getData(){
                 // attention CORS
-                var api='localhost:8080/api/300750';
+                var api='//localhost:8080/GetDapanDayData';
                 Axios.get(api).then((response)=>{
                     this.list=response.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                 }).catch((error)=>{
                     console.log(error);
-
                 })
 
             }
         },
         mounted(){  /*生命周期函数*/
-
             this.getData();
-
         }
-       
-
     }
 </script>
 

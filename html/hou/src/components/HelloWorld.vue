@@ -23,7 +23,7 @@ import Axios from 'axios';
         methods:{
             getData(){
                 // attention CORS
-                var api='//localhost:8080/GetDapanDayData';
+                var api='//localhost:8080/stocks/300750';
                 Axios.get(api).then((response)=>{
                     this.list=response.data;
                     // console.log(response.data);

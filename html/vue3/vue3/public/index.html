@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="window-size" content="title=vue&width=1200&height=680&scroll=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <!-- <link rel="stylesheet" type="text/css" href="//s.thsi.cn/css/jsmodule/web/thsicon/1.2/thsicon.min.css" /> -->
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if(VUE_APP_USEDEVTOOLS==='true'){ %>
+  <script src="http://localhost:8098"></script>
+  <% } %> <% if(VUE_APP_CURRENTMODE === 'production'){ %>
+  <script src="//s.thsi.cn/js/common/shield/shield.js"></script>
+  <% } %>
+  <script id="monitor-script" api_key="ths_b2c" src="//s.thsi.cn/js/common/monitor/1.0/monitor.min.js" crossorigin>
+  </script>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but vue3.1 doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script src="//s.thsi.cn/cb?/js/common/cefapi/1.5.5/cefApi.min.js;/js/common/b2c/ta/ta.min.js;/js/jsmodule/acme/1.2/acme.js;/js/datav/charts/0.4.20/d3_charts.js" crossorigin>
+  </script>
+</body>
+
+</html>

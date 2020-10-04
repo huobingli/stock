@@ -15,12 +15,13 @@
 
 <!--    批量处理-->
     <insert id="InsertDapanData2" >
-        insert into dapan (`time`, `limitupcount`, `limitdowncount`, `prelimitup`)
+        insert into dapan (`time`, `date`, `zt_num`, `dt_num`, `zf_zero_num`, `df_zero_num`, `zf_five_num`, `df_five_num`, `zrztbx`, `szzs`)
         values
         <foreach collection="list" item="item" index="index"  separator=",">
-            (#{item.time}, #{item.limitupcount}, #{item.limitdowncount}, #{item.prelimitup})
+            (#{item.time}, #{item.date}, #{item.zt_num}, #{item.dt_num}, #{item.zf_zero_num}, #{item.df_zero_num}, #{item.zf_five_num}, #{item.df_five_num}, #{item.zrztbx}, #{item.szzs})
         </foreach>
     </insert>
+
     <select id="query" resultType="com.stock.project.dao.DapanLimitUpDownEntity">
         select  * from dapan limit 1;
     </select>

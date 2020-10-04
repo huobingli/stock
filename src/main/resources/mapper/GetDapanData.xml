@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stock.project.dao.GetDapanData">
+<!--    涨跌停数据-->
     <resultMap id="resultEntityMap" type="com.stock.project.dao.DapanLimitUpDownEntity">
         <id column="id" property="id"  />
         <result column="time" property="time" />
-        <result column="limitupcount" property="limitupcount" />
-        <result column="limitdowncount" property="limitdowncount" />
-        <result column="prelimitup" property="prelimitup" />
+        <result column="zt_num" property="zt_num" />
+        <result column="dt_num" property="dt_num" />
+<!--        <result column="zrztbx" property="zrztbx" />-->
     </resultMap>
 
-    <select id="SelectList" resultMap="resultEntityMap">
-        select id, time, limitupcount, limitdowncount, prelimitup from dapan order by time asc;
+    <select id="SelectDapanLUDInfoList" resultMap="resultEntityMap">
+        select id, time, zt_num, dt_num from dapan order by time desc limit 100;
+    </select>
+
+<!--    涨跌数据-->
+    <resultMap id="riseResultEntityMap" type="com.stock.project.dao.DapanRiseInfoEntity">
+        <id column="id" property="id"  />
+        <result column="time" property="time" />
+        <result column="zf_zero_num" property="zf_zero_num" />
+        <result column="df_zero_num" property="df_zero_num" />
+        <!--        <result column="zrztbx" property="zrztbx" />-->
+    </resultMap>
+
+    <select id="SelectDapanRiseInfoList" resultMap="riseResultEntityMap">
+        select id, time, zf_zero_num, df_zero_num from dapan order by time asc limit 100;
     </select>
 </mapper>

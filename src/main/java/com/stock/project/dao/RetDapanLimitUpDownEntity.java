@@ -9,11 +9,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class DapanLimitUpDownEntity {
-    private Integer id;
-    private String time;
-    private Integer zt_num;
-    private Integer dt_num;
-//    private Double zrztbx;
+public class RetDapanLimitUpDownEntity{
+    private Integer max;
+    private Object list;
 }
-

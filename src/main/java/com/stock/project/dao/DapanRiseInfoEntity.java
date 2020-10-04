@@ -9,11 +9,9 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class DapanLimitUpDownEntity {
+public class DapanRiseInfoEntity {
     private Integer id;
     private String time;
-    private Integer zt_num;
-    private Integer dt_num;
-//    private Double zrztbx;
+    private Integer zf_zero_num;
+    private Integer df_zero_num;
 }
-

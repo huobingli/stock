@@ -10,6 +10,6 @@
     </resultMap>
 
     <select id="SelectList" resultMap="resultEntityMap">
-        select id, time, limitupcount, limitdowncount, prelimitup from dapan ;
+        select id, time, limitupcount, limitdowncount, prelimitup from dapan order by time asc;
     </select>
 </mapper>

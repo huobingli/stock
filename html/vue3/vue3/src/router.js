@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Dapan from './views/Dapan.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,10 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       // component: () => import( /* webpackChunkName: "Home" */ './views/Home.vue')
     },
-
+    {
+      path: '/dapan',
+      name: 'dapan',
+      component: Dapan
+    },
   ]
 });

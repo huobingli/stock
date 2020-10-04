@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
+  <div class="dapan">
     <!-- <h1>Welcome to Vue-cli3 Clean Template!</h1> -->
     <demo/>
   </div>
 </template>
 
 <script>
-import demo from '@/components/home'
+import demo from '@/components/dapan'
 export default {
-  name: 'home',
+  name: 'dapan',
   components: {demo},
   computed: {},
   mounted() {},

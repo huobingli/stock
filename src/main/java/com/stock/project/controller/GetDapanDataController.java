@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +23,14 @@ public class GetDapanDataController {
         try{
             List<DapanLimitUpDownEntity> result = getDapanData.SelectList();
 
+            for ( int i = 0; i < result.size(); i++) {
+                DapanLimitUpDownEntity data = result.get(i);
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
+
+                long lTime = Long.parseLong(data.getTime());
+                Date date = new Date(lTime);
+                data.setTime(formatter.format(date));
+            }
             return ResultVo.success(result);
         } catch (Exception e) {
 

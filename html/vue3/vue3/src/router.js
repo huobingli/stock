@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Dapan from './views/Dapan.vue';
+import Gaolin from './views/Gaolin.vue';
+import Gaoyi from './views/Gaoyi.vue';
 
 Vue.use(Router);
 
@@ -24,5 +26,15 @@ export default new Router({
       name: 'dapan',
       component: Dapan
     },
+    {
+      path: '/gaolin',
+      name: 'gaolin',
+      component: Gaolin
+    },
+    {
+      path: '/gaoyi',
+      name: 'gaoyi',
+      component: Gaoyi
+    }
   ]
 });

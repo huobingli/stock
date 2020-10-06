@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="dapan">dapan</router-link>
+    <div id="nav" >
+      <router-link to="/">Home</router-link>&nbsp;&nbsp;
+      <router-link to="dapan">大盘</router-link>&nbsp;&nbsp;
+      <router-link to="gaolin">高瓴资本</router-link>&nbsp;&nbsp;
+      <router-link to="gaoyi">高毅资本</router-link>&nbsp;&nbsp;
     </div>
     <router-view />
   </div>

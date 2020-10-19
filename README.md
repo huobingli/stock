@@ -37,3 +37,6 @@ mybatis.mapperLocations=classpath:mapper/*.xml
 @RequestBody
 
 @AcrossOrigin       处理跨域请求 CORS
+
+### 打包
+mvn package

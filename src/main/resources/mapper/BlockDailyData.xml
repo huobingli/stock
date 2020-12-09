@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stock.project.dao.OperateBlockData">
+    <!--    单独处理-->
+    <insert id="InsertBlockData" >
+        insert into blockdailydata (`blockcode`, `date`, `rise`)
+        values (#{blockcode}, #{date}, #{rise})
+
+    </insert>
+
+    <!--    批量处理-->
+    <insert id="InsertBlockData2" >
+        insert into blockdailydata (`blockcode`, `date`, `rise`)
+        values
+        <foreach collection="list" item="item" index="index"  separator=",">
+            (#{item.blockcode}, #{item.date}, #{item.rise})
+        </foreach>
+    </insert>
+
+    <select id="RequestBlockDailyData" resultType="com.stock.project.dao.BlockDataEntity">
+        select  * from blockdailydata limit 1;
+    </select>
+</mapper>

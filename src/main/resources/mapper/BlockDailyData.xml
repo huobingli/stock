@@ -17,6 +17,23 @@
         </foreach>
     </insert>
 
+
+    <!--    单独处理-->
+    <insert id="InsertBlockBaseData" >
+        insert into blockbase (`blockcode`, `blockname`, `blocktype`, `blockfstname`)
+        values (#{blockcode}, #{blockname}, #{blocktype}, #{blockfstname})
+
+    </insert>
+
+    <!--    批量处理-->
+    <insert id="InsertBlockBaseData2" >
+        insert into blockbase (`blockcode`, `blockname`, `blocktype`, `blockfstname`)
+        values
+        <foreach collection="list" item="item" index="index"  separator=",">
+            (#{item.blockcode}, #{item.blockname}, #{item.blocktype}, #{item.blockfstname})
+        </foreach>
+    </insert>
+
     <select id="RequestBlockDailyData" resultType="com.stock.project.dao.BlockDataEntity">
         select  * from blockdailydata limit 1;
     </select>

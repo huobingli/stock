@@ -9,4 +9,9 @@ public interface OperateBlockData {
                          @Param("rise") String rise);
 
     void InsertBlockData2(List<BlockDataEntity> list);
+
+    void InsertBlockBaseData(@Param("blockcode") String blockcode, @Param("date") String date,
+                         @Param("rise") String rise);
+
+    void InsertBlockBaseData2(List<BlockBaseEntity> list);
 }

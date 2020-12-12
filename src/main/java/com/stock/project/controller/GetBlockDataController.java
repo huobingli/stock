@@ -29,7 +29,10 @@ public class GetBlockDataController {
     public String GetBlockDataHotTrack() {
         String response = "";
         try {
+            // 附加参数可以请求 多少条参数
+            //http://l2.10jqka.com.cn/hottrack/api/getcircleblocks?daynum=30
             URL url = new URL("http://l2.10jqka.com.cn/hottrack/api/getcircleblocks");
+
             URLConnection urlConnection = url.openConnection();
             HttpURLConnection connection = null;
 

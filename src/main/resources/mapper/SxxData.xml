@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stock.project.dao.SxxData">
+    <!--    批量处理-->
+    <insert id="InsertSxxData" >
+        insert into sxx (`code`, `sxxx`, `xy`)
+        values
+        <foreach collection="list" item="item" index="index"  separator=",">
+            (#{item.code}, #{item.sxxx}, #{item.xy})
+        </foreach>
+    </insert>
+
+    <select id="query" resultType="com.stock.project.dao.SelectSxxInfoList">
+        select  * from sxx;
+    </select>
+</mapper>

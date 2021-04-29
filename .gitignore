@@ -36,3 +36,4 @@ build/
 ### jar
 *.jar
 *.mf
+node_modules/

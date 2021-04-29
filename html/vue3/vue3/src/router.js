@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Dapan from './views/Dapan.vue';
 import Gaolin from './views/Gaolin.vue';
 import Gaoyi from './views/Gaoyi.vue';
+import SXX from './views/SXX.vue';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/gaoyi',
       name: 'gaoyi',
       component: Gaoyi
+    },
+    {
+      path: '/sxx',
+      name: 'sxx',
+      component: SXX
     }
   ]
 });

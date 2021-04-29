@@ -3,14 +3,14 @@
 <mapper namespace="com.stock.project.dao.SxxData">
     <!--    批量处理-->
     <insert id="InsertSxxData" >
-        insert into sxx (`code`, `sxxx`, `xy`)
+        insert into sxx (`code`, `time`,`sxxx120`, `sxxx250`, `sxxx`, `xy120`, `xy250`)
         values
         <foreach collection="list" item="item" index="index"  separator=",">
-            (#{item.code}, #{item.sxxx}, #{item.xy})
+            (#{item.code}, #{item.time}, #{item.sxxx120}, #{item.sxxx250}, #{item.sxxx}, #{item.xy120}, #{item.xy250})
         </foreach>
     </insert>
 
-<!--    <select id="query" resultType="com.stock.project.dao.SelectSxxInfoList">-->
-<!--        select  * from sxx;-->
-<!--    </select>-->
+    <select id="query" resultType="com.stock.project.dao.SxxDataEntity">
+        select * from sxx;
+    </select>
 </mapper>

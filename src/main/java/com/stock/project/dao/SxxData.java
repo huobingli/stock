@@ -5,6 +5,6 @@ import java.util.List;
 public interface SxxData {
     void InsertSxxData(List<SxxDataEntity> list);
 
-    // 大盘涨跌数据
+    // 获取数据
     List<SxxDataEntity> SelectSxxInfoList();
 }

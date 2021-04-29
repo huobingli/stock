@@ -16,6 +16,14 @@ import store from './store';
 import api from '@/api';
 import util from '@/utils/util.js';
 import femonitorVue from 'femonitor-vue';
+import ElementUI from 'element-ui';
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+Vue.use(Element, { size: 'small', zIndex: 3000 });
+
+
 femonitorVue(Vue);
 Vue.config.productionTip = false;
 Vue.prototype.$eventBus = new Vue();

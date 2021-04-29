@@ -2,8 +2,11 @@ package com.stock.project.controller;
 
 import com.stock.project.dao.SxxData;
 import com.stock.project.dao.SxxDataEntity;
+import com.stock.project.dao.SxxDataRetEntity;
+import com.stock.project.dao.SxxDataSxxxXyEntity;
 import com.stock.project.model.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -102,13 +105,79 @@ public class SxxDataController {
         }
     }
 
-    @RequestMapping("SelectSxxData")
+    @RequestMapping("TestSelectSxxData")
+    @CrossOrigin
     //@RequestBody
-    public ResultVo SelectSxxData() {
+    public ResultVo TestSelectSxxData() {
         try {
-            List<SxxDataEntity> result = sxxData.SelectSxxInfoList();
-
+            List<SxxDataRetEntity> result = sxxData.SelectSxxInfoList();
             return ResultVo.success(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVo.error(-1, "抛出异常");
+        }
+    }
+
+    @RequestMapping("SelectSxx250_Xy250Data")
+    @CrossOrigin
+    public ResultVo SelectSxx250_Xy250Data() {
+        try {
+            List<SxxDataRetEntity> result = sxxData.SelectSxxInfoList();
+            ArrayList<ArrayList<Double>> ret = new ArrayList<ArrayList<Double>>();
+            for ( int i = 0; i < result.size(); i++) {
+                System.out.println(i);
+                SxxDataRetEntity data = result.get(i);
+
+                if (data != null) {
+                    ArrayList<Double> db = new ArrayList<Double>();
+                    if (data.getSxxx250() != null)
+                        db.add(Double.parseDouble(data.getSxxx250()));
+                    else
+                        db.add(0.0);
+
+                    if (data.getXy250() != null)
+                        db.add(Double.parseDouble(data.getXy250()));
+                    else
+                        db.add(0.0);
+
+                    ret.add(db);
+                }
+            }
+
+            return ResultVo.success(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVo.error(-1, "抛出异常");
+        }
+    }
+
+    @RequestMapping("SelectSxxx_XyData")
+    @CrossOrigin
+    public ResultVo SelectSxxx_XyData() {
+        try {
+            List<SxxDataSxxxXyEntity> result = sxxData.SelectSxxxXyList();
+            ArrayList<ArrayList<Double>> ret = new ArrayList<ArrayList<Double>>();
+            for ( int i = 0; i < result.size(); i++) {
+                System.out.println(i);
+                SxxDataSxxxXyEntity data = result.get(i);
+
+                if (data != null) {
+                    ArrayList<Double> db = new ArrayList<Double>();
+                    if (data.getSxxx() != null)
+                        db.add(Double.parseDouble(data.getSxxx()));
+                    else
+                        db.add(0.0);
+
+                    if (data.getXy250() != null)
+                        db.add(Double.parseDouble(data.getXy250()));
+                    else
+                        db.add(0.0);
+
+                    ret.add(db);
+                }
+            }
+
+            return ResultVo.success(ret);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultVo.error(-1, "抛出异常");

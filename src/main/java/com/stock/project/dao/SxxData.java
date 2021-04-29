@@ -6,5 +6,7 @@ public interface SxxData {
     void InsertSxxData(List<SxxDataEntity> list);
 
     // 获取数据
-    List<SxxDataEntity> SelectSxxInfoList();
+    List<SxxDataRetEntity> SelectSxxInfoList();
+
+    List<SxxDataSxxxXyEntity> SelectSxxxXyList();
 }

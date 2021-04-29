@@ -1,5 +1,8 @@
 package com.stock.project.model;
 
+
+import java.util.ArrayList;
+
 public class ResultVo {
     private Integer code;
     private String msg;
@@ -14,6 +17,10 @@ public class ResultVo {
     }
 
     public static ResultVo success(Object data) {
+        return new ResultVo(0, "success", data);
+    }
+
+    public static ResultVo success(ArrayList data) {
         return new ResultVo(0, "success", data);
     }
 

@@ -10,7 +10,11 @@
         </foreach>
     </insert>
 
-    <select id="SelectSxxInfoList" resultType="com.stock.project.dao.SxxDataEntity">
+    <select id="SelectSxxInfoList" resultType="com.stock.project.dao.SxxDataRetEntity">
         select code, sxxx250, xy250 from sxx;
+    </select>
+
+    <select id="SelectSxxxXyList" resultType="com.stock.project.dao.SxxDataSxxxXyEntity">
+        select code, sxxx, xy250 from sxx;
     </select>
 </mapper>

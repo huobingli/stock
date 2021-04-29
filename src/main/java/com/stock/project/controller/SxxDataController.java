@@ -93,18 +93,6 @@ public class SxxDataController {
                 }
             }
 
-
-
-//            SxxDataEntity data = new SxxDataEntity();
-//            data.setCode(s1[0].substring(1)).setXy()
-
-
-//
-////            for (int i = 0; i < arrayData.size(); i++) {
-////                SxxDataEntity sxxdata = new SxxDataEntity();
-////                arrayList.add(sxxdata);
-////            }
-//
             sxxData.InsertSxxData(arrayList);
             return ResultVo.success("插入成功");
 
@@ -118,7 +106,9 @@ public class SxxDataController {
     //@RequestBody
     public ResultVo SelectSxxData() {
         try {
-            return ResultVo.success("查询成功");
+            List<SxxDataEntity> result = sxxData.SelectSxxInfoList();
+
+            return ResultVo.success(result);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultVo.error(-1, "抛出异常");

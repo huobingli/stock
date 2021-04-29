@@ -158,7 +158,6 @@ public class SxxDataController {
             List<SxxDataSxxxXyEntity> result = sxxData.SelectSxxxXyList();
             ArrayList<ArrayList<Double>> ret = new ArrayList<ArrayList<Double>>();
             for ( int i = 0; i < result.size(); i++) {
-                System.out.println(i);
                 SxxDataSxxxXyEntity data = result.get(i);
 
                 if (data != null) {

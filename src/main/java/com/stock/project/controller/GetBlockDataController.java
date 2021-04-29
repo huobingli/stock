@@ -19,6 +19,13 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+*   用于获取每天的版块数据，zdf前十数据
+*
+*
+*
+* */
+
 @RestController
 public class GetBlockDataController {
     @Autowired
@@ -29,7 +36,10 @@ public class GetBlockDataController {
     public String GetBlockDataHotTrack() {
         String response = "";
         try {
-            URL url = new URL("http://l2.10jqka.com.cn/hottrack/api/getcircleblocks");
+            // 附加参数可以请求 多少条参数 这个接口最多返回60条数据
+            //http://l2.10jqka.com.cn/hottrack/api/getcircleblocks?daynum=30
+            URL url = new URL("http://l2.10jqka.com.cn/hottrack/api/getcircleblocks?daynum=60");
+
             URLConnection urlConnection = url.openConnection();
             HttpURLConnection connection = null;
 

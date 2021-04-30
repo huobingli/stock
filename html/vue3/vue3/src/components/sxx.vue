@@ -18,18 +18,16 @@ export default {
     data(){
         return {
         data:null,
+        dataCode: []
     }},
     mounted() {
-        // this.init()
         this.getSxxData()
-        // this.init()
     },
     methods:{
         init(){
             var chartDom = document.getElementById('main');
             var myChart = echarts.init(chartDom);
             var option;
-            
 
             // See https://github.com/ecomfe/echarts-stat
             echarts.registerTransform(ecStat.transform.clustering);
@@ -103,6 +101,7 @@ export default {
                 '#37A2DA', '#e06343', '#37a354', '#b55dba', '#b5bd48', '#8378EA', '#96BFFF'
             ];
             var pieces = [];
+            var _this =this;
             for (var i = 0; i < CLUSTER_COUNT; i++) {
                 pieces.push({
                     value: i,
@@ -114,7 +113,7 @@ export default {
             // console.log(data)
             option = {
                 dataset: [{
-                    source: this.data
+                    source: this.data,
                 }, {
                     transform: {
                         type: 'ecStat:clustering',
@@ -129,16 +128,18 @@ export default {
                 tooltip: {
                     position: 'top',
                     trigger: 'item',
-                    formatter: function (params) {
-                        console.log(params)
+                    formatter :(params) =>{
+                        // console.log(params.dataIndex)
                         var color = params.color;//图例颜色
                         var htmlStr ='<div>';
                         // htmlStr += params.name + '<br/>';//x轴的名称
                         //为了保证和原来的效果一样，这里自己实现了一个点的效果
                         htmlStr += '<span ></span>';
                         
+                        // this.dataCode
+                        // console.log(this.dataCode)
                         //添加一个汉字，这里你可以格式你的数字或者自定义文本内容
-                        htmlStr += ' code ：' + params.value[0] + " , " + params.value[1];
+                        htmlStr += 'code: ' + this.dataCode[params.dataIndex] + ' sxxx:' + params.value[0] + " rps250:" + params.value[1];
                         
                         htmlStr += '</div>';
                         
@@ -184,17 +185,20 @@ export default {
                 // console.log(ret)
 
                 let arr = []
+                let arrCode = []
                 for (var value of ret) {
                     // console.log(value);
                     let tmp = []
                     tmp.push(Number(value["sxxx"]))
                     tmp.push(Number(value["xy250"]))
-                    tmp.push(300033)
                     arr.push(tmp)
+
+                    arrCode.push(value["code"])
                     // break
                 }
-                // console.log(arr);
+                console.log(arrCode);
 
+                this.dataCode = arrCode
                 this.data = arr
                 this.init();
             }).catch((error)=>{

@@ -2,6 +2,19 @@
     <div>
         <div id="chartInfo" style="width:1400px;margin:0 auto;">
             <p>SXX</p>
+            <div id="sxx" >
+                <label for="">sxx：</label>
+                <el-radio-group v-model="radio_sxx" @change="changeSxx">
+                    <el-radio label="1">sxx120</el-radio>
+                    <el-radio label="2">sxx250</el-radio>
+                    <el-radio label="3">sxxcha</el-radio>
+                </el-radio-group>
+                <label for="">rps：</label>
+                <el-radio-group v-model="radio_rps" @change="changeRps">
+                    <el-radio label="1">rps120</el-radio>
+                    <el-radio label="2">rps250</el-radio>
+                </el-radio-group>
+            </div>
         </div>
         <div id="main" style="width:900px;height:900px;margin:0 auto;"></div>
     </div>
@@ -17,6 +30,9 @@ export default {
     name: "sxx",
     data(){
         return {
+        radio_sxx: '1',
+        radio_rps: '1',
+
         data:null,
         dataCode: []
     }},
@@ -129,16 +145,10 @@ export default {
                     position: 'top',
                     trigger: 'item',
                     formatter :(params) =>{
-                        // console.log(params.dataIndex)
                         var color = params.color;//图例颜色
                         var htmlStr ='<div>';
-                        // htmlStr += params.name + '<br/>';//x轴的名称
                         //为了保证和原来的效果一样，这里自己实现了一个点的效果
                         htmlStr += '<span ></span>';
-                        
-                        // this.dataCode
-                        // console.log(this.dataCode)
-                        //添加一个汉字，这里你可以格式你的数字或者自定义文本内容
                         htmlStr += 'code: ' + this.dataCode[params.dataIndex] + ' sxxx:' + params.value[0] + " rps250:" + params.value[1];
                         
                         htmlStr += '</div>';
@@ -186,17 +196,32 @@ export default {
 
                 let arr = []
                 let arrCode = []
+
+                let x
+                if (this.radio_sxx == 1)
+                    x = "sxxx120"
+                else if (this.radio_sxx == 2)
+                    x = "sxxx250"
+                else if (this.radio_sxx == 3)
+                    x = "sxxx"
+
+                let y
+                if (this.radio_rps == 1)
+                    y = "xy120"
+                else if (this.radio_rps == 2)
+                    y = "xy250"
+
                 for (var value of ret) {
-                    // console.log(value);
+                    // console.log(value);x
                     let tmp = []
-                    tmp.push(Number(value["sxxx"]))
-                    tmp.push(Number(value["xy250"]))
+                    tmp.push(Number(value[x]))
+                    tmp.push(Number(value[y]))
                     arr.push(tmp)
 
                     arrCode.push(value["code"])
                     // break
                 }
-                console.log(arrCode);
+                console.log(arr);
 
                 this.dataCode = arrCode
                 this.data = arr
@@ -205,6 +230,12 @@ export default {
                 console.log(error);
             })
         },
+        changeSxx(label) {
+            this.getSxxData()
+        },
+        changeRps(label) {
+            this.getSxxData()
+        }
     }
 }
 </script>

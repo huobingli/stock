@@ -9,4 +9,6 @@ public interface SxxData {
     List<SxxDataRetEntity> SelectSxxInfoList();
 
     List<SxxDataSxxxXyEntity> SelectSxxxXyList();
+
+    List<SxxDataEntity> SelectAllList();
 }

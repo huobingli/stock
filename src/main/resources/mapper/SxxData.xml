@@ -17,4 +17,8 @@
     <select id="SelectSxxxXyList" resultType="com.stock.project.dao.SxxDataSxxxXyEntity">
         select code, sxxx, xy250 from sxx;
     </select>
+
+    <select id="SelectAllList" resultType="com.stock.project.dao.SxxDataEntity">
+        select * from sxx;
+    </select>
 </mapper>

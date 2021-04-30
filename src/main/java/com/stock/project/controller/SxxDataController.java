@@ -125,7 +125,6 @@ public class SxxDataController {
             List<SxxDataRetEntity> result = sxxData.SelectSxxInfoList();
             ArrayList<ArrayList<Double>> ret = new ArrayList<ArrayList<Double>>();
             for ( int i = 0; i < result.size(); i++) {
-                System.out.println(i);
                 SxxDataRetEntity data = result.get(i);
 
                 if (data != null) {
@@ -176,6 +175,18 @@ public class SxxDataController {
                 }
             }
 
+            return ResultVo.success(ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVo.error(-1, "抛出异常");
+        }
+    }
+
+    @RequestMapping("SelectSxxAllData")
+    @CrossOrigin
+    public ResultVo SelectSxxAllData() {
+        try{
+            List<SxxDataEntity> ret = sxxData.SelectAllList();
             return ResultVo.success(ret);
         } catch (Exception e) {
             e.printStackTrace();

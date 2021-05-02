@@ -36,7 +36,7 @@ export default {
         data:null,
         dataCode: [],
         alldata: [],
-        myChart: null
+        // myChart: null
     }},
     mounted() {
         this.getSxxData()
@@ -45,7 +45,7 @@ export default {
         init(){
             var chartDom = document.getElementById('main');
             var myChart = echarts.init(chartDom);
-            this.myChart = myChart
+            // this.myChart = myChart       // 这里会使图变卡
             var option;
 
             // See https://github.com/ecomfe/echarts-stat
@@ -148,7 +148,7 @@ export default {
                     position: 'top',
                     trigger: 'item',
                     formatter :(params) =>{
-                        var color = params.color;//图例颜色
+                        // var color = params.color;//图例颜色
                         var htmlStr ='<div>';
                         //为了保证和原来的效果一样，这里自己实现了一个点的效果
                         htmlStr += '<span ></span>';
@@ -272,7 +272,7 @@ export default {
         getSxxData(){
             // var api='http://localhost:8080/SelectSxxx_XyData';
             var api='http://localhost:8080/SelectSxxAllData';
-            let response;
+            // let response;
             Axios.get(api).then((response)=>{
                 let ret = response.data.data
                 this.alldata = ret
@@ -316,8 +316,8 @@ export default {
         },
         changeSxx(label) {
             let arr = []
-            let arrCode = []
-
+            // let arrCode = []
+            console.log("changeSxx")
             let x
             if (this.radio_sxx == 1)
                 x = "sxxx120"
@@ -350,6 +350,7 @@ export default {
         },
         changeRps(label) {
             this.getSxxData()
+            console.log("changeRps")
         },
         getShowData(){
 

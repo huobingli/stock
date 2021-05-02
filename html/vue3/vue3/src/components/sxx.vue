@@ -34,7 +34,9 @@ export default {
         radio_rps: '1',
 
         data:null,
-        dataCode: []
+        dataCode: [],
+        alldata: [],
+        myChart: null
     }},
     mounted() {
         this.getSxxData()
@@ -43,6 +45,7 @@ export default {
         init(){
             var chartDom = document.getElementById('main');
             var myChart = echarts.init(chartDom);
+            this.myChart = myChart
             var option;
 
             // See https://github.com/ecomfe/echarts-stat
@@ -117,7 +120,7 @@ export default {
                 '#37A2DA', '#e06343', '#37a354', '#b55dba', '#b5bd48', '#8378EA', '#96BFFF'
             ];
             var pieces = [];
-            var _this =this;
+            // var _this = this;
             for (var i = 0; i < CLUSTER_COUNT; i++) {
                 pieces.push({
                     value: i,
@@ -150,9 +153,7 @@ export default {
                         //为了保证和原来的效果一样，这里自己实现了一个点的效果
                         htmlStr += '<span ></span>';
                         htmlStr += 'code: ' + this.dataCode[params.dataIndex] + ' sxxx:' + params.value[0] + " rps250:" + params.value[1];
-                        
                         htmlStr += '</div>';
-                        
                         return htmlStr;
                     }
                 },
@@ -186,12 +187,95 @@ export default {
 
             option && myChart.setOption(option);
         },
+        // setData(){
+        //     var chartDom = document.getElementById('main');
+        //     var myChart = echarts.init(chartDom);
+        //     var option;
+
+        //     // See https://github.com/ecomfe/echarts-stat
+        //     echarts.registerTransform(ecStat.transform.clustering);
+
+        //     var CLUSTER_COUNT = 6;
+        //     var DIENSIION_CLUSTER_INDEX = 2;
+        //     var COLOR_ALL = [
+        //         '#37A2DA', '#e06343', '#37a354', '#b55dba', '#b5bd48', '#8378EA', '#96BFFF'
+        //     ];
+        //     var pieces = [];
+        //     var _this =this;
+        //     for (var i = 0; i < CLUSTER_COUNT; i++) {
+        //         pieces.push({
+        //             value: i,
+        //             label: 'cluster ' + i,
+        //             color: COLOR_ALL[i]
+        //         });
+        //     }
+            
+        //     option = {
+        //         dataset: [{
+        //             source: this.data,
+        //         }, {
+        //             transform: {
+        //                 type: 'ecStat:clustering',
+        //                 // print: true,
+        //                 config: {
+        //                     clusterCount: CLUSTER_COUNT,
+        //                     outputType: 'single',
+        //                     outputClusterIndexDimension: DIENSIION_CLUSTER_INDEX
+        //                 }
+        //             }
+        //         }],
+        //         tooltip: {
+        //             position: 'top',
+        //             trigger: 'item',
+        //             formatter :(params) =>{
+        //                 var color = params.color;//图例颜色
+        //                 var htmlStr ='<div>';
+        //                 //为了保证和原来的效果一样，这里自己实现了一个点的效果
+        //                 htmlStr += '<span ></span>';
+        //                 htmlStr += 'code: ' + this.dataCode[params.dataIndex] + ' sxxx:' + params.value[0] + " rps250:" + params.value[1];
+                        
+        //                 htmlStr += '</div>';
+                        
+        //                 return htmlStr;
+        //             }
+        //         },
+        //         visualMap: {
+        //             type: 'piecewise',
+        //             top: 'middle',
+        //             min: 0,
+        //             max: CLUSTER_COUNT,
+        //             left: 10,
+        //             splitNumber: CLUSTER_COUNT,
+        //             dimension: DIENSIION_CLUSTER_INDEX,
+        //             pieces: pieces
+        //         },
+        //         grid: {
+        //             left: 120
+        //         },
+        //         xAxis: {
+        //         },
+        //         yAxis: {
+        //         },
+        //         series: {
+        //             type: 'scatter',
+        //             encode: { tooltip: [0, 1] },
+        //             symbolSize: 15,
+        //             itemStyle: {
+        //                 borderColor: '#555'
+        //             },
+        //             datasetIndex: 1
+        //         }
+        //     };
+
+        //     option && myChart.setOption(option);
+        // },
         getSxxData(){
             // var api='http://localhost:8080/SelectSxxx_XyData';
             var api='http://localhost:8080/SelectSxxAllData';
             let response;
             Axios.get(api).then((response)=>{
                 let ret = response.data.data
+                this.alldata = ret
                 // console.log(ret)
 
                 let arr = []
@@ -231,10 +315,44 @@ export default {
             })
         },
         changeSxx(label) {
-            this.getSxxData()
+            let arr = []
+            let arrCode = []
+
+            let x
+            if (this.radio_sxx == 1)
+                x = "sxxx120"
+            else if (this.radio_sxx == 2)
+                x = "sxxx250"
+            else if (this.radio_sxx == 3)
+                x = "sxxx"
+
+            let y
+            if (this.radio_rps == 1)
+                y = "xy120"
+            else if (this.radio_rps == 2)
+                y = "xy250"
+
+            for (var value of this.alldata) {
+                let tmp = []
+                tmp.push(Number(value[x]))
+                tmp.push(Number(value[y]))
+                arr.push(tmp)
+            }
+            
+            this.data = arr
+
+            let option = {
+                dataset: [{
+                    source: this.data,
+                }]
+            };
+            this.myChart.setOption(option)
         },
         changeRps(label) {
             this.getSxxData()
+        },
+        getShowData(){
+
         }
     }
 }
